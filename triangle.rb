@@ -14,7 +14,12 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  # WRITE THIS CODE
+  # check for exceptions
+  raise TriangleError, "Sides can't be zero value" if (a==0 || b==0 || c==0)
+  raise TriangleError, "Sides can't have negative values" if (a<0 || b<0 || c<0)
+  raise TriangleError, "Does not form a valid triangle" if (a+b<=c) || (b+c<=a) || (a+c<=b)
+
+
   return :equilateral if (a==b) && (b==c) && (c==a)
   return :isosceles if (a==b) || (b==c) || (c==a)
   :scalene	# no sides equal
