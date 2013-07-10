@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Implement a DiceSet Class here:
 #
 
+=begin :: My original solution
 class DiceSet
   attr_reader :values
   def roll(number_of_dice)
@@ -10,11 +11,10 @@ class DiceSet
     1.upto(number_of_dice) { |i| @values << Random.new.rand(1..6)  }
     return @values
   end
-
 end
+=end 
 
-
-=begin comment
+=begin :: Alternate solution using .inject
 class DiceSet
   attr_reader :values
 
@@ -23,6 +23,27 @@ class DiceSet
   end
 end
 =end 
+
+# clearest solution
+class DiceSet
+  attr_reader :values
+
+  def roll(number_of_dice)
+    # this works
+    # @values = number_of_dice.times.map{rand(1..6)}
+
+    # this also works, clearer to understand too
+    @values = Array.new(number_of_dice){ rand(1..6) }
+
+    # this one does not work, because all values are the same, 
+    # not random because rand(1..6) is only executed once
+    # and result is assigned to all index in the Array
+    # solution above using {block code} is the correct one!
+    # since rand(1..6) will be executed for each index in the array
+    # @values = Array.new(number_of_dice, rand(1..6))   
+  end
+end
+
 
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
