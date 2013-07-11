@@ -20,9 +20,9 @@ class Proxy
     @messages = Array.new;
   end
 
-  # we got tripped here.... we just can't use send()... need to 
+  # we got tripped here.... we just can't use send()... or self.send;  need to 
   # preface it with @object because we'll be sending these methods to that
-  # other object
+  # other @object
   def method_missing(method_name, *args, &block)  
     if @object.respond_to?(method_name)
       messages << method_name   # keep track of method names that it responds to
